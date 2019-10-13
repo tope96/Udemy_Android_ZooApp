@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         listOfAnimals.add(Animal("Panda", "Panda is so nice!", R.drawable.panda, false))
         listOfAnimals.add(Animal("Swallow Bird", "It is just a bird wich swallows", R.drawable.swallow_bird, false))
         listOfAnimals.add(Animal("White Tiger", "Tiger which is soo racist", R.drawable.white_tiger, true))
-        listOfAnimals.add(Animal("Zebra","Zebra is like a horse but wich stripes", R.drawable.zebra)    )
+        listOfAnimals.add(Animal("Zebra","Zebra is like a horse but wich stripes", R.drawable.zebra, false)    )
 
         adapter = AnimalAdapter(this, listOfAnimals)
         tvListAnimal.adapter = adapter
@@ -44,12 +44,23 @@ class MainActivity : AppCompatActivity() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val animal = listOfAnimals[position]
-            var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var myView = inflator.inflate(R.layout.animal_ticket, null)
-            myView.tvName.text = animal.name!!
-            myView.tbDes.text = animal.des!!
-            myView.ivAnmalImage.setImageResource(animal.image!!)
-            return myView
+
+            if(animal.isKiller == true){
+                var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var myView = inflator.inflate(R.layout.animal_killer_ticket, null)
+                myView.tvName.text = animal.name!!
+                myView.tbDes.text = animal.des!!
+                myView.ivAnmalImage.setImageResource(animal.image!!)
+                return myView
+            }else{
+                var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var myView = inflator.inflate(R.layout.animal_ticket, null)
+                myView.tvName.text = animal.name!!
+                myView.tbDes.text = animal.des!!
+                myView.ivAnmalImage.setImageResource(animal.image!!)
+                return myView
+            }
+
         }
 
         override fun getItem(position: Int): Any {

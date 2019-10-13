@@ -8,7 +8,7 @@
     android:padding="5pt">
 
     <LinearLayout
-        android:background="@drawable/background"
+        android:background="@drawable/background_killer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
