@@ -1,15 +1,19 @@
 package com.example.zooapp
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.getSystemService
+import kotlinx.android.synthetic.main.activity_animal_info.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.animal_ticket.view.*
+import kotlinx.android.synthetic.main.animal_ticket.view.tvName
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +35,17 @@ class MainActivity : AppCompatActivity() {
         tvListAnimal.adapter = adapter
     }
 
+    fun delete(index:Int){
+        listOfAnimals.removeAt(index)
+        adapter!!.notifyDataSetChanged()
+    }
 
-    class AnimalAdapter:BaseAdapter{
+    fun add(index:Int){
+        listOfAnimals.add(index, listOfAnimals[index])
+        adapter!!.notifyDataSetChanged()
+    }
+
+    inner class AnimalAdapter:BaseAdapter{
 
         var listOfAnimals = ArrayList<Animal>()
         var context:Context ?= null
@@ -51,6 +64,13 @@ class MainActivity : AppCompatActivity() {
                 myView.tvName.text = animal.name!!
                 myView.tbDes.text = animal.des!!
                 myView.ivAnmalImage.setImageResource(animal.image!!)
+                myView.setOnClickListener {
+                    val intent = Intent(context, AnimalInfo::class.java)
+                    intent.putExtra("name", animal.name!!)
+                    intent.putExtra("des", animal.des!!)
+                    intent.putExtra("image", animal.image!!)
+                    context!!.startActivity(intent)
+                }
                 return myView
             }else{
                 var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -58,6 +78,13 @@ class MainActivity : AppCompatActivity() {
                 myView.tvName.text = animal.name!!
                 myView.tbDes.text = animal.des!!
                 myView.ivAnmalImage.setImageResource(animal.image!!)
+                myView.setOnClickListener {
+                    val intent = Intent(context, AnimalInfo::class.java)
+                    intent.putExtra("name", animal.name!!)
+                    intent.putExtra("des", animal.des!!)
+                    intent.putExtra("image", animal.image!!)
+                    context!!.startActivity(intent)
+                }
                 return myView
             }
 
